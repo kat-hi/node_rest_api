@@ -7,5 +7,5 @@ const PostSchema = new mongoose.Schema({
   starred_posts: []
 });
 
-mongoose.model('User', PostSchema);
-module.exports = mongoose.model('User');
+mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Post');

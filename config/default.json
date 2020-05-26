@@ -2,6 +2,10 @@
   "db": {
     "connectionOptions": "{ useNewUrlParser: true, useUnifiedTopology: true}",
     "connectionString": "mongodb://localhost:27017/test"
+  },
+  "server": {
+    "port": 3000,
+    "host": "localhost"
   }
 }
 

@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-const Post = require('./Post');
+const Post = require('./PostModel');
 
 router.get('/', function (req, res) {
     Post.find({}, function (err, posts) {

@@ -4,7 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+var UserController = require('./api/User/UserController');
+var PostController = require('./api/Posts/PostController');
+
 const app = express();
+app.use('/users', UserController);
+app.use('/posts', PostController);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
