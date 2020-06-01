@@ -1,7 +1,7 @@
 {
   "db": {
     "connectionOptions": "{ useNewUrlParser: true, useUnifiedTopology: true}",
-    "connectionString": "mongodb://localhost:27017/test"
+    "connectionString": "mongodb://localhost:27017/web2database"
   },
   "server": {
     "port": 3000,
