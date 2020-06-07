@@ -1,15 +1,17 @@
 var express = require('express');
-var router = express.Router();
 var PostController = require('./PostController');
-/* GET users listing. */
+var router = express.Router();
+var bodyParser = require('body-parser');
+router.use(bodyParser.urlencoded({extended: true}));
+
 router.route('/')
-    .get(PostController.getPosts)
+    .get(PostController.readPosts)
     .post(PostController.createPost)
     //.delete(PostController.deleteUsers)
 
 router.route('/:id')
-    //.get(PostController.getUser)
-    //.put(PostController.updateUser)
-    //.delete(PostController.deleteUser)
+    .get(PostController.readPostById)
+    //.put(PostController.updatePost)
+    .delete(PostController.deletePostById)
 
 module.exports = router;
