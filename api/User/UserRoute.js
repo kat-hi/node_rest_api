@@ -1,15 +1,17 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var router = express.Router();
+router.use(bodyParser.urlencoded({extended: true}));
+
 const UserController = require('./UserController');
 
-/* GET users listing. */
 router.route('/')
     .post(UserController.createUser)
-    .get(UserController.getUsers)
-    //.delete(UserController.deleteUsers)
+    .get(UserController.readUsers)
 
 router.route('/:id')
-    .get(UserController.getUser)
+    .get(UserController.readUserById)
+    .delete(UserController.deleteUserById)
     //.put(UserController.updateUser)
     //.delete(UserController.deleteUser)
 
