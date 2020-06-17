@@ -21,7 +21,6 @@ exports.readPostById = function(request, response) {
 
 exports.createPost = function(request, response) {
     Post.create({
-            id : request.body.id,
             name: request.body.name,
             email : request.body.email,
             password : request.body.password,
@@ -39,4 +38,11 @@ exports.deletePostById = function (request, response) {
         if (error) return response.status(500).send("There was a problem deleting the post.");
         response.status(200).send("Post "+ post.name +" was deleted.");
     });
+}
+
+exports.updatePost = (req, res) => {
+    Post.findOneAndUpdate({_id : req.params.id} ,{ "$set": req.body }, { returnNewDocument: true }, (error, document) => {
+        if (error) return res.status(500).send("There was a problem updating the post.")
+        res.status(200).send(document)
+    })
 }
