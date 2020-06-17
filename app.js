@@ -4,7 +4,7 @@ const logger = require('morgan');
 const path = require('path');
 const app = express();
 
-var allRoutes = require('./api/allRoutes');
+const allRoutes = require('./api/allRoutes');
 
 app.use('/', allRoutes.indexRoute);
 app.use('/users', allRoutes.userRoute);
@@ -17,12 +17,11 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var security = require('./middleware/security')
-var err = require('./middleware/error')
-app.use(err.errorHandler)
-app.use(err.serverErrorHandler)
-app.get('/*', security.isLoggedIn)
-app.get('/*', security.isAuthenticated)
-
+// var security = require('./middleware/security')
+// var err = require('./middleware/error')
+// app.use(err.errorHandler)
+// app.use(err.serverErrorHandler)
+// app.get('/*', security.isLoggedIn)
+// app.get('/*', security.isAuthenticated)
 
 module.exports = app;

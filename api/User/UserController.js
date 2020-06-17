@@ -19,6 +19,8 @@ exports.readUserById = function(req, res) {
 
 exports.createUser = function(req, res) {
     console.log('USER POST')
+    console.log(req.body)
+    console.log('test')
     User.create({
             id : req.body.id,
             name: req.body.name,
@@ -28,7 +30,7 @@ exports.createUser = function(req, res) {
             starred_posts: req.body.starred_posts
         },
         function(err, user) {
-            if (err) return res.status(500).send("There was a problem adding the information to the database.");
+            if (err) return res.status(500).send("There was a problem adding the information to the database." + err );
             res.status(200).send(user);
         });
 };
