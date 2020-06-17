@@ -3,13 +3,13 @@ const express = require('express');
 
 const User = require('./UsersModel');
 
-exports.readUsers = async (req, res) => {
+exports.readUsers = (req, res) => {
     User.find(function (err, users) {
         if (err) return res.status(500).send("There was a problem finding the users.");
         res.status(200).send(users);
     });
 };
-exports.readUserById = function(req, res) {
+exports.readUserById = (req, res) => {
     User.findById(req.params.id, function(err, user) {
         if (err) return res.status(500).send("There was a problem finding the user.");
         if (!user) return res.status(404).send("No user found.");
@@ -17,7 +17,7 @@ exports.readUserById = function(req, res) {
     });
 };
 
-exports.createUser = function(req, res) {
+exports.createUser = (req, res) => {
     console.log('USER POST')
     console.log(req.body)
     console.log('test')
@@ -34,10 +34,17 @@ exports.createUser = function(req, res) {
             res.status(200).send(user);
         });
 };
-exports.deleteUserById = function (req, res) {
+exports.deleteUserById = (req, res) => {
     User.findByIdAndRemove(req.params.id, function (err, user) {
         if (err) return res.status(500).send("There was a problem deleting the user.");
         res.status(200).send("User " + user.name + " was deleted.");
     });
 }
 
+exports.updateUser = function (req, res) {
+    User.findOneAndUpdate({_id : req.params.id} ,{ "$set": req.body }, { returnNewDocument: true }, (error, document) => {
+        if (error) return res.status(500).send("There was a problem updating the user.")
+        console.log(document)
+        res.status(200).send(document)
+    })
+}
