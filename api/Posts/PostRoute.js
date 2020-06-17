@@ -7,11 +7,10 @@ router.use(bodyParser.urlencoded({extended: true}));
 router.route('/')
     .get(PostController.readPosts)
     .post(PostController.createPost)
-    //.delete(PostController.deleteUsers)
 
 router.route('/:id')
     .get(PostController.readPostById)
-    //.put(PostController.updatePost)
+    .put(PostController.updatePost)
     .delete(PostController.deletePostById)
 
 module.exports = router;
