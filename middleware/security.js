@@ -1,31 +1,40 @@
 const jwt = require('jsonwebtoken')
+const config = require('config')
 
-function isAuthenticated(request, response, next) {
-    if (typeof request.headers.authorization !== 'undefined') {
-        let token = request.headers.authorization.split(" ")[1];
-        var privateKey = config.get('session.tokenKey');
-        jwt.very(token, privateKey, { algorithm: "HS256 "}, (err, user) => {
+function isAuthenticated(req, res, next) {
+    if (typeof req.headers.authorization !== 'undefined') {
+        const token = req.headers.authorization.split(' ')[1];
+        const secret = config.get('secrets.secretkey');
+        jwt.verify(token, secret, { algorithm: "HS256 "}, (err, user) => {
             if (err) {
-                res.status(500).json({error: "Not Authorized"});
-                return;
+                return res.status(403).send(json({ error: "Not Authorized" }));
             }
             return next();
         });
     } else {
-        response.status(500).json({ error: "Not Authorized"});
-        return;
+        return res.status(403).send(json({ error: "Not Authorized" }));
     }
 };
 
-function isLoggedIn(request, response, next) {
-    if (true) {
-        next();
+// function isLoggedIn(request, response, next) {
+//     if (true) {
+//         next();
+//     } else {
+//         response.send('Sorry, you are not logged in!')
+//     }
+// };
+
+function verifyToken (req, res, next) {
+    const bearerHeader = req.headers['authorization']
+    if (typeof bearerHeader !== 'undefined') {
+        req.token = bearerHeader.split(' ')[1]
+        next()
     } else {
-        response.send('Sorry, you are not logged in!')
+        res.status(403).send("Forbidden");
     }
-};
+}
 
 module.exports = {
-    isAuthenticated,
-    isLoggedIn
+    verifyToken,
+    isAuthenticated
 }
