@@ -1,14 +1,14 @@
 const User = require('./UsersModel');
 
-exports.readUsers = function (req, res) {
-    User.find(function (err, users) {
+exports.readUsers = (req, res) => {
+    User.find((err, users) => {
         if (err) return res.status(500).send("There was a problem finding the users.");
         res.status(200).send(users);
     });
 };
 
-exports.readUserById = async (req, res) => {
-    await User.findById(req.params.id, function(err, user) {
+exports.readUserById = (req, res) => {
+    User.findById(req.params.id, (err, user) => {
         if (err) return res.status(500).send("There was a problem finding the user.");
         if (!user) return res.status(404).send("No user found.");
         res.status(200).send(user);
@@ -33,7 +33,7 @@ exports.createUser = async (req, res) => {
 };
 
 exports.deleteUserById = (req, res) => {
-    User.findByIdAndRemove(req.params.id, function (err, user) {
+    User.findByIdAndRemove(req.params.id, (err, user) => {
         if (err) return res.status(500).send("There was a problem deleting the user. " + err);
         res.status(200).send("User " + user.name + " was deleted.");
     });

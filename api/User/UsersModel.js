@@ -16,23 +16,20 @@ const UserSchema = new mongoose.Schema({
   starred_posts: []
 });
 
-// UserSchema.pre('save', function (next) {
-//   const user = this;
-//   if (!user.isModified('password')) { return next() }
-//   bcrypt.hash(user.password,10).then((hashedPassword) => {
-//     user.password = hashedPassword;
-//     next();
-//   })
-// }, function (err) {
-//   next(err)
-// });
-//
-// UserSchema.methods.comparePassword = function(candidatePassword, next) {
-//   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-//     if (err)
-//       return next(err)
-//     next (null, isMatch)
-//   })
-// }
+UserSchema.pre('save', (next) => {
+  const user = this;
+  if (!user.isModified('password')) { return next() }
+  bcrypt.hash(user.password,10).then((hashedPassword) => {
+    user.password = hashedPassword;
+    next();
+  })
+}, (err) => { next(err) });
+
+UserSchema.methods.comparePassword = (try_password, next) => {
+  bcrypt.compare(try_password, this.password, (err, isMatch) => {
+    if (err) return next(err)
+    next (null, isMatch)
+  })
+}
 
 module.exports = mongoose.model('User', UserSchema);
