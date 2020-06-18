@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const config = require('config')
 const bcrypt = require('bcrypt')
 
-mongoose.connect(config.db.connectionString, {useNewUrlParser: true, useUnifiedTopology: true})
-console.log(config.db.connectionString)
+const connectionString = config.get('db.connectionString')
+
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true})
+console.log(connectionString)
 
 const UserSchema = new mongoose.Schema({
   id: Number,
@@ -15,7 +17,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 // UserSchema.pre('save', function (next) {
-//   var user = this;
+//   const user = this;
 //   if (!user.isModified('password')) { return next() }
 //   bcrypt.hash(user.password,10).then((hashedPassword) => {
 //     user.password = hashedPassword;
@@ -32,4 +34,5 @@ const UserSchema = new mongoose.Schema({
 //     next (null, isMatch)
 //   })
 // }
+
 module.exports = mongoose.model('User', UserSchema);
