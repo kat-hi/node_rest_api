@@ -8,6 +8,9 @@
     "port": 3000,
     "host": "localhost",
     "protocol" : "http"
+  },
+  "secrets" : {
+    "secretkey" : "uew4UdDIoCYtan2FZOTMfNDTX4khpCAH"
   }
 }
 
