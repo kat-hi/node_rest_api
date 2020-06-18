@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const config = require('config')
-mongoose.connect(config.db.connectionString, {useNewUrlParser: true, useUnifiedTopology: true})
-console.log(config.db.connectionString)
+const connectionString = config.get('db.connectionString')
+
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true})
+console.log(connectionString)
 
 const PostSchema = new mongoose.Schema({
   id: Number,

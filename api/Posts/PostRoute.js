@@ -1,7 +1,7 @@
-var express = require('express');
-var PostController = require('./PostController');
-var router = express.Router();
-var bodyParser = require('body-parser');
+const express = require('express');
+const PostController = require('./PostController');
+const router = express.Router();
+const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: true}));
 
 router.route('/')

@@ -1,7 +1,3 @@
-// postController.js
-const express = require('express');
-const bodyParser = require('body-parser');
-
 const Post = require('./PostModel');
 
 exports.readPosts = function(request, response) {
@@ -44,5 +40,14 @@ exports.updatePost = (req, res) => {
     Post.findOneAndUpdate({_id : req.params.id} ,{ "$set": req.body }, { returnNewDocument: true }, (error, document) => {
         if (error) return res.status(500).send("There was a problem updating the post.")
         res.status(200).send(document)
+    })
+}
+
+// query methods to call
+exports.readPostByCategory = async category => {
+    await Post.find({ "category" : category }, function (error, post) {
+        if (error) return "There was a problem finding the post."
+        if (!post) return "No post found."
+        return post
     })
 }
