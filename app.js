@@ -3,12 +3,17 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const path = require('path');
 const app = express();
-
+const bodyParser = require('body-parser');
 const allRoutes = require('./api/allRoutes');
+const security = require('./middleware/security')
+
+app.use(bodyParser.urlencoded({ extended: true }));
+const jsonParser = bodyParser.json({ type: 'application/json'});
 
 app.use('/', allRoutes.indexRoute);
-app.use('/users', allRoutes.userRoute);
-app.use('/posts', allRoutes.postRoute);
+app.use('/users', jsonParser, security.verifyToken, security.isAuthenticated, allRoutes.userRoute);
+app.use('/posts', jsonParser, allRoutes.postRoute);
+app.use('/login', jsonParser, allRoutes.loginRoute);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -16,12 +21,6 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// var security = require('./middleware/security')
-// var err = require('./middleware/error')
-// app.use(err.errorHandler)
-// app.use(err.serverErrorHandler)
-// app.get('/*', security.isLoggedIn)
-// app.get('/*', security.isAuthenticated)
+app.use(express.json())
 
 module.exports = app;
