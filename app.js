@@ -12,7 +12,7 @@ const jsonParser = bodyParser.json({ type: 'application/json'});
 
 app.use('/', allRoutes.indexRoute);
 app.use('/users', jsonParser, security.verifyToken, security.isAuthenticated, allRoutes.userRoute);
-app.use('/posts', jsonParser, allRoutes.postRoute);
+app.use('/posts', jsonParser, security.verifyToken, security.isAuthenticated, allRoutes.postRoute);
 app.use('/login', jsonParser, allRoutes.loginRoute);
 
 app.set('views', path.join(__dirname, 'views'));
