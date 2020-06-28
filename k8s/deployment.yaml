@@ -4,14 +4,12 @@ metadata:
   name: noderest
   labels:
     app: noderest
-    tier: api
 spec:
   replicas: 1
   template:
     metadata:
       labels:
         app: noderest
-        tier: api
     spec:
       containers:
         - name: noderest
@@ -32,4 +30,3 @@ spec:
   selector:
     matchLabels:
       app: noderest
-      tier: api
