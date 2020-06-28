@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: noderest
+  labels:
+    app: noderest
+    tier: api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: noderest
+        tier: api
+    spec:
+      containers:
+        - name: noderest
+          image: registry.datexis.com/ksachs/noderestserver:latest
+          ports:
+            - name: client-port
+              containerPort: 3000
+          resources:
+            requests:
+              cpu: "1"
+              memory: "8Gi"
+            limits:
+              cpu: "4"
+              memory: "16Gi"
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: private-registry-auth
+  selector:
+    matchLabels:
+      app: noderest
+      tier: api

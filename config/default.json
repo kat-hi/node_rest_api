@@ -11,6 +11,10 @@
   },
   "secrets" : {
     "secretkey" : "uew4UdDIoCYtan2FZOTMfNDTX4khpCAH"
+  },
+  "mail" : {
+    "email": "ktrn.schs@gmail.com",
+    "password": "sicheres.password1"
   }
 }
 

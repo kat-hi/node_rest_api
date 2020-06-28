@@ -14,6 +14,7 @@ app.use('/', allRoutes.indexRoute);
 app.use('/users', jsonParser, security.verifyToken, security.isAuthenticated, allRoutes.userRoute);
 app.use('/posts', jsonParser, security.verifyToken, security.isAuthenticated, allRoutes.postRoute);
 app.use('/login', jsonParser, allRoutes.loginRoute);
+app.use('/mail', jsonParser, allRoutes.mailRoute);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
