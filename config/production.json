@@ -2,11 +2,11 @@
   "env": "production",
   "db": {
     "connectionOptions": "{ useNewUrlParser: true, useUnifiedTopology: true}",
-    "connectionString": "mongodb://localhost:27017/web2database"
+    "connectionString": "mongodb://10.107.220.187:27017/web2"
   },
   "server": {
     "port": 443,
-    "host": "",
+    "host": "0.0.0.0",
     "protocol": "https"
   }
 }

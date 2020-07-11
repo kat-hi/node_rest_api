@@ -1,13 +1,12 @@
 {
-  "env" : "development",
+  "env" : "production",
   "db": {
     "connectionOptions": "{ useNewUrlParser: true, useUnifiedTopology: true}",
-    "connectionString": "mongodb://localhost:27017/web2database"
+    "connectionString": "mongodb://10.107.220.187:27017/web2"
   },
   "server": {
     "port": 3000,
-    "host": "localhost",
-    "protocol" : "http"
+    "host": "0.0.0.0"
   },
   "secrets" : {
     "secretkey" : "uew4UdDIoCYtan2FZOTMfNDTX4khpCAH"
@@ -17,4 +16,3 @@
     "password": "sicheres.password1"
   }
 }
-

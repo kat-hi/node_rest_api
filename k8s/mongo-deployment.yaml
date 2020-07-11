@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  labels:
+    app: mongodb
+    tier: database
+spec:
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: mongodb
+        tier: database
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+          ports:
+            - name: client-port
+              containerPort: 27017
+          command:
+          - "mongod"
+          - "--bind_ip"
+          - "0.0.0.0"
+          volumeMounts:
+            - name: mongo-pv-claim
+              mountPath: /data/db 
+          resources:
+            requests:
+              cpu: "2"
+              memory: "8Gi"
+            limits:
+              cpu: "4"
+              memory: "16Gi"
+      imagePullSecrets:
+        - name: private-registry-auth
+      volumes:
+        - name: mongo-pv-claim
+          persistentVolumeClaim:
+            claimName: mongo-pv-claim
+  selector:
+    matchLabels:
+      app: mongodb
+      tier: database

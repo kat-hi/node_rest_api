@@ -13,10 +13,15 @@ spec:
     spec:
       containers:
         - name: noderest
-          image: registry.datexis.com/ksachs/noderestserver:latest
+          image: registry.datexis.com/ksachs/noderestserver:v5
           ports:
             - name: client-port
               containerPort: 3000
+          env:
+          - name: env
+            value: "production"
+          - name: connectionString
+            value: "mongodb://10.107.220.187:27017/web2"
           resources:
             requests:
               cpu: "1"

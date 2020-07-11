@@ -6,7 +6,6 @@ mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: t
 console.log(connectionString)
 
 const PostSchema = new mongoose.Schema({
-  id: Number,
   title: String,
   content: String,
   category: String,

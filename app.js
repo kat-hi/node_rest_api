@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const jsonParser = bodyParser.json({ type: 'application/json'});
 
 app.use('/', allRoutes.indexRoute);
-app.use('/users', jsonParser, security.verifyToken, security.isAuthenticated, allRoutes.userRoute);
-app.use('/posts', jsonParser, security.verifyToken, security.isAuthenticated, allRoutes.postRoute);
+app.use('/users', jsonParser, allRoutes.userRoute);
+app.use('/posts', jsonParser, allRoutes.postRoute);
 app.use('/login', jsonParser, allRoutes.loginRoute);
 app.use('/mail', jsonParser, allRoutes.mailRoute);
 
